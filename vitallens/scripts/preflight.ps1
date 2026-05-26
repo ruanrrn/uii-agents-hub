@@ -64,7 +64,7 @@ Check "VITALLENS_API_KEY env var" {
 #    We can't actually verify camera access from PowerShell — only the browser
 #    can. We list adapters as a coarse signal that *some* camera exists.
 Check "Webcam device present" {
-    $cams = Get-PnpDevice -Class Camera -Status OK -ErrorAction SilentlyContinue
+    $cams = @(Get-PnpDevice -Class Camera -Status OK -ErrorAction SilentlyContinue)
     if ($cams -and $cams.Count -gt 0) { return "$($cams.Count) device(s)" } else { return $null }
 } "Plug in or enable a webcam; the launcher will request browser permission on first run."
 
