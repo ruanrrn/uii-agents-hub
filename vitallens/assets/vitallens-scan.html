@@ -189,8 +189,16 @@
       let recStream = null;
 
       async function openCamera() {
+        // Force 1280×720: height must be 16-byte aligned for VP8. The camera's
+        // native 1920×1080 (1080/16=67.5) causes the VP8 encoder to pad rows
+        // to 1088 internally; the decoder strips them back to 1080, producing a
+        // 4800-byte buffer mismatch in ffmpeg.wasm. 720/16=45 — clean.
         const rawStream = await navigator.mediaDevices.getUserMedia({
-          video: { frameRate: { ideal: REC_FPS } },
+          video: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            frameRate: { ideal: REC_FPS },
+          },
           audio: false,
         });
 
