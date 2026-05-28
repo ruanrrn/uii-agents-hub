@@ -208,6 +208,9 @@ function launchBrowser(browserPath, url) {
     // Force DPR=1 to prevent MediaRecorder from scaling encoded frames
     '--force-device-scale-factor=1',
     '--high-dpi-support=1',
+    // Force software VP8 — Edge's hardware encoder produces non-standard
+    // output that ffmpeg.wasm inside vitallens.browser.js cannot decode.
+    '--disable-accelerated-video-encode',
   ];
 
   const proc = spawn(browserPath, args, {
