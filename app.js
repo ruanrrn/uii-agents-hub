@@ -2,7 +2,7 @@
    Skill Hub — Models-style data + renderer
    ================================================================ */
 
-const REPO_URL = 'https://github.com/ruanrrn/uii-agent-hub';
+const REPO_URL = 'https://github.com/ruanrrn/uii-skills-hub';
 
 const SKILLS = [
   {
