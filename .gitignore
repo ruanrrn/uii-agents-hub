@@ -1,2 +1,5 @@
 .claude/
 node_modules
+imaging-detection-plugin/
+imaging-data/
+imaging-detection-plugin.7z

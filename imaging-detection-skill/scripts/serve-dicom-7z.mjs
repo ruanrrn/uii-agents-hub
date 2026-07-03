@@ -63,7 +63,7 @@ const server = http.createServer((req, res) => {
   res.writeHead(200, {
     "Content-Type": "application/x-7z-compressed",
     "Content-Length": stat.size,
-    "Content-Disposition": `attachment; filename="${escapeHeaderValue(fileName)}"`,
+    "Content-Disposition": buildContentDisposition(fileName),
     "Cache-Control": "no-store",
   });
 
@@ -214,8 +214,12 @@ function detectPublicHost() {
   return "127.0.0.1";
 }
 
-function escapeHeaderValue(value) {
-  return String(value).replace(/["\\\r\n]/g, "_");
+function buildContentDisposition(name) {
+  const asciiFallback = String(name)
+    .replace(/[^\x20-\x7e]/g, "_")
+    .replace(/["\\]/g, "_");
+  const encoded = encodeURIComponent(name);
+  return `attachment; filename="${asciiFallback}"; filename*=UTF-8''${encoded}`;
 }
 
 function sendJson(res, statusCode, payload) {
