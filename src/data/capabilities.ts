@@ -73,24 +73,15 @@ const ichDetail: SkillDetail = {
     {
       nodeType: 'default',
       nodeLabel: '②',
-      title: { zh: '检查类型验证', en: 'Exam type validation' },
+      title: { zh: 'Agent 前置检查确认', en: 'Agent pre-flight check' },
       desc: {
-        zh: '确认模态为 CT、序列为非增强、部位为头颅；不符则终止并提示',
-        en: 'Confirm the modality is CT, the series is non-contrast, and the region is head; abort with notice if mismatch'
-      }
-    },
-    {
-      nodeType: 'default',
-      nodeLabel: '③',
-      title: { zh: 'DICOM 调阅', en: 'DICOM retrieval' },
-      desc: {
-        zh: '调用 PACS 基础工具，按患者 ID / 检查号获取目标序列',
-        en: 'Call PACS base tools to retrieve target series by patient ID / accession number'
+        zh: '确认影像 MCP 工具可用',
+        en: 'Confirm imaging MCP tools are available'
       }
     },
     {
       nodeType: 'warn',
-      nodeLabel: '④',
+      nodeLabel: '③',
       title: { zh: '去标识化', en: 'De-identification' },
       desc: {
         zh: '影像出院内网前必须完成，调用 PACS 去标识化工具处理 DICOM',
@@ -102,8 +93,8 @@ const ichDetail: SkillDetail = {
       nodeLabel: 'MCP',
       title: { zh: '提交推理', en: 'Submit inference' },
       desc: {
-        zh: '传入去标识后 DICOM URI，返回 job_id',
-        en: 'Pass de-identified DICOM URI, returns job_id'
+        zh: '传入去标识后 DICOM URI，返回 taskId',
+        en: 'Pass de-identified DICOM URI, returns taskId'
       }
     },
     {
@@ -126,7 +117,7 @@ const ichDetail: SkillDetail = {
     },
     {
       nodeType: 'default',
-      nodeLabel: '⑧',
+      nodeLabel: '⑦',
       title: { zh: '危急值判定', en: 'Critical value determination' },
       desc: {
         zh: '依据预设危急值规则进行判定，规则固化于 Skill 中不经 LLM 推断，具体阈值可按医院实际应用情况调整',
@@ -135,8 +126,8 @@ const ichDetail: SkillDetail = {
     },
     {
       nodeType: 'end',
-      nodeLabel: '⑨',
-      title: { zh: '输出结构化分诊摘要', en: 'Output structured triage summary' },
+      nodeLabel: '⑧',
+      title: { zh: '输出结构化报告/Viewer链接', en: 'Output structured report / Viewer link' },
       desc: {
         zh: '返回给 Agent / 医生，含免责声明',
         en: 'Return to Agent / physician, with disclaimer'
@@ -182,17 +173,17 @@ const ichDetail: SkillDetail = {
       en: 'Copy the text below and paste it to any AI assistant that can read natural language and execute local scripts'
     },
     code: {
-      zh: '安装 ich_emergency_triage：\n\n源码：https://github.com/ruanrrn/UII-Agent-Suite/tree/main/skills/ich-emergency-triage\n\n依赖：\n  • UII MCP Server（联影智能 ICH 推理接口）\n  • PACS 基础工具（DICOM 调阅 + 去标识化）',
-      en: 'Install ich_emergency_triage:\n\nSource: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/skills/ich-emergency-triage\n\nDependencies:\n  • UII MCP Server (UII ICH inference API)\n  • PACS Base Tools (DICOM retrieval + de-identification)'
+      zh: '安装 ich-detection-skill：\n\n源码：\n  • Skill: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-plugin/ich-detection-skill\n  • MCP: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-mcp\n\n依赖：\n  • Node.js 18+\n  • imaging-detection-mcp（npm 全局安装，提供 create_imaging_task / get_imaging_task）\n  • 可被远端拉取的去标识化影像 7z URL',
+      en: 'Install ich-detection-skill:\n\nSource:\n  • Skill: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-plugin/ich-detection-skill\n  • MCP: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-mcp\n\nDependencies:\n  • Node.js 18+\n  • imaging-detection-mcp (global npm install, provides create_imaging_task / get_imaging_task)\n  • Remotely accessible de-identified imaging 7z URL'
     },
     links: [
       {
         label: 'SKILL.md',
-        href: 'https://github.com/ruanrrn/UII-Agent-Suite/tree/main/skills/ich-emergency-triage/SKILL.md'
+        href: 'https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-plugin/ich-detection-skill/SKILL.md'
       },
       {
         label: 'References',
-        href: 'https://github.com/ruanrrn/UII-Agent-Suite/tree/main/skills/ich-emergency-triage/references'
+        href: 'https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-plugin/ich-detection-skill/references'
       }
     ]
   }
@@ -251,24 +242,15 @@ const ribDetail: SkillDetail = {
     {
       nodeType: 'default',
       nodeLabel: '②',
-      title: { zh: '检查类型验证', en: 'Exam type validation' },
+      title: { zh: 'Agent 前置检查确认', en: 'Agent pre-flight check' },
       desc: {
-        zh: '确认模态为 CT、部位为胸部；不符则终止并提示',
-        en: 'Confirm the modality is CT and the region is chest; abort with notice if mismatch'
-      }
-    },
-    {
-      nodeType: 'default',
-      nodeLabel: '③',
-      title: { zh: 'DICOM 调阅', en: 'DICOM retrieval' },
-      desc: {
-        zh: '调用 PACS 基础工具，按患者 ID / 检查号获取目标序列',
-        en: 'Call PACS base tools to retrieve target series by patient ID / accession number'
+        zh: '确认影像 MCP 工具可用',
+        en: 'Confirm imaging MCP tools are available'
       }
     },
     {
       nodeType: 'warn',
-      nodeLabel: '④',
+      nodeLabel: '③',
       title: { zh: '去标识化', en: 'De-identification' },
       desc: {
         zh: '影像出院内网前必须完成，调用 PACS 去标识化工具处理 DICOM',
@@ -280,8 +262,8 @@ const ribDetail: SkillDetail = {
       nodeLabel: 'MCP',
       title: { zh: '提交推理', en: 'Submit inference' },
       desc: {
-        zh: '传入去标识后 DICOM URI，返回 job_id',
-        en: 'Pass de-identified DICOM URI, returns job_id'
+        zh: '传入去标识后 DICOM URI，返回 taskId',
+        en: 'Pass de-identified DICOM URI, returns taskId'
       }
     },
     {
@@ -304,11 +286,8 @@ const ribDetail: SkillDetail = {
     },
     {
       nodeType: 'end',
-      nodeLabel: '⑧',
-      title: {
-        zh: '输出分诊结论及结构化报告草稿',
-        en: 'Output triage conclusion and structured report draft'
-      },
+      nodeLabel: '⑦',
+      title: { zh: '输出结构化报告/Viewer链接', en: 'Output structured report / Viewer link' },
       desc: {
         zh: '返回给 Agent / 医生，含免责声明',
         en: 'Return to Agent / physician, with disclaimer'
@@ -354,17 +333,17 @@ const ribDetail: SkillDetail = {
       en: 'Copy the text below and paste it to any AI assistant that can read natural language and execute local scripts'
     },
     code: {
-      zh: '安装 rib_emergency_triage：\n\n源码：https://github.com/uii-ai/agents-hub/tree/main/skills/rib-emergency-triage\n\n依赖：\n  • UII MCP Server（联影智能肋骨骨折推理接口）\n  • PACS 基础工具（DICOM 调阅 + 去标识化）',
-      en: 'Install rib_emergency_triage:\n\nSource: https://github.com/uii-ai/agents-hub/tree/main/skills/rib-emergency-triage\n\nDependencies:\n  • UII MCP Server (UII rib fracture inference API)\n  • PACS Base Tools (DICOM retrieval + de-identification)'
+      zh: '安装 rib-detection-skill：\n\n源码：\n  • Skill: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-plugin/rib-detection-skill\n  • MCP: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-mcp\n\n依赖：\n  • Node.js 18+\n  • imaging-detection-mcp（npm 全局安装，提供 create_imaging_task / get_imaging_task）\n  • 可被远端拉取的去标识化影像 7z URL',
+      en: 'Install rib-detection-skill:\n\nSource:\n  • Skill: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-plugin/rib-detection-skill\n  • MCP: https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-mcp\n\nDependencies:\n  • Node.js 18+\n  • imaging-detection-mcp (global npm install, provides create_imaging_task / get_imaging_task)\n  • Remotely accessible de-identified imaging 7z URL'
     },
     links: [
       {
         label: 'SKILL.md',
-        href: 'https://github.com/uii-ai/agents-hub/tree/main/skills/rib-emergency-triage/SKILL.md'
+        href: 'https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-plugin/rib-detection-skill/SKILL.md'
       },
       {
         label: 'References',
-        href: 'https://github.com/uii-ai/agents-hub/tree/main/skills/rib-emergency-triage/references'
+        href: 'https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-plugin/rib-detection-skill/references'
       }
     ]
   }
