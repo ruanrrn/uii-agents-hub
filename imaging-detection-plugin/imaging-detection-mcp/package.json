@@ -1,0 +1,60 @@
+{
+  "name": "@rayruan/imaging-detection-mcp",
+  "version": "1.0.0",
+  "description": "影像检测 MCP server：支持 stdio 和 Streamable HTTP，根据影像检测类型与 DICOM 7z URL 调用 AI Task API，返回诊断报告与 viewer url。",
+  "type": "module",
+  "license": "UNLICENSED",
+  "author": "UII",
+  "homepage": "https://github.com/ruanrrn/UII-Agent-Suite/tree/main/imaging-detection-mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruanrrn/UII-Agent-Suite.git",
+    "directory": "imaging-detection-mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/ruanrrn/UII-Agent-Suite/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "stdio",
+    "medical-imaging",
+    "dicom",
+    "ich",
+    "rib-fracture"
+  ],
+  "bin": {
+    "imaging-detection-mcp": "bin/imaging-detection-mcp.mjs",
+    "imaging-detection-mcp-http": "bin/imaging-detection-mcp-http.mjs"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "server.mjs",
+    "scripts/",
+    ".env.example",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node bin/imaging-detection-mcp.mjs stdio",
+    "start:stdio": "node bin/imaging-detection-mcp.mjs stdio",
+    "start:http": "node bin/imaging-detection-mcp.mjs http",
+    "check": "node --check server.mjs && node --check bin/imaging-detection-mcp.mjs && node --check bin/imaging-detection-mcp-http.mjs && node --check src/config.mjs && node --check src/imaging-task-api.mjs && node --check src/mcp-server.mjs && node --check src/stdio-server.mjs && node --check src/http-server.mjs && node --check scripts/mcp-smoke.mjs && node --check scripts/mcp-stdio-smoke.mjs",
+    "test": "node --test",
+    "prepublishOnly": "npm run check && npm test",
+    "smoke": "npm run smoke:stdio && npm run smoke:http",
+    "smoke:stdio": "node scripts/mcp-stdio-smoke.mjs",
+    "smoke:http": "node scripts/mcp-smoke.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.0"
+  }
+}
